@@ -729,7 +729,7 @@ contract MdxStrategyAddTwoSidesOptimal is Ownable, ReentrancyGuard, Strategy {
             minLPAmount = _minLPAmount;
 
             require(borrowToken == token0 || borrowToken == token1, "borrowToken not token0 and token1");
-            if (token0Amount > 0 && _token0 != address(0)) {
+            if (token0Amount > 0 && token0 != address(0)) {
                 token0.safeTransferFrom(user, address(this), token0Amount);
             }
             if (token1Amount > 0 && token1 != address(0)) {
