@@ -617,6 +617,12 @@ contract MdxStrategyWithdrawMinimizeTrading is Ownable, ReentrancyGuard, Strateg
         wht = _router.WHT();
     }
 
+    /// @dev Throws if called by any account other than the goblin.
+    modifier onlyGoblin() {
+        require(isGoblin(), "caller is not the goblin");
+        _;
+    }
+
     /// @dev Execute worker strategy. Take LP tokens. Return debt token + token want back.
     /// @param user User address to withdraw liquidity.
     /// @param borrowToken The token user borrow from bank.
@@ -625,6 +631,7 @@ contract MdxStrategyWithdrawMinimizeTrading is Ownable, ReentrancyGuard, Strateg
     function execute(address user, address borrowToken, uint256 /* borrow */, uint256 debt, bytes calldata data)
         external
         payable
+        onlyGoblin
         nonReentrant
     {
         // 1. Find out lpToken and liquidity.
