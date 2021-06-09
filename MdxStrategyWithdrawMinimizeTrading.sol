@@ -623,6 +623,11 @@ contract MdxStrategyWithdrawMinimizeTrading is Ownable, ReentrancyGuard, Strateg
         _;
     }
 
+    /// @dev Returns true if the caller is the current goblin.
+    function isGoblin() public view returns (bool) {
+        return msg.sender == goblin;
+    }
+
     /// @dev Execute worker strategy. Take LP tokens. Return debt token + token want back.
     /// @param user User address to withdraw liquidity.
     /// @param borrowToken The token user borrow from bank.
